@@ -6,7 +6,12 @@
     </head>
     <body>
         <?php
-            print 'Olá Mundo!';
+            require_once 'Helper/Bootstrap.php';
+            
+            use lib\System;
+            
+            $System = new System();
+            $System->Run();
         ?>
     </body>
 </html>

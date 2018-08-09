@@ -2,6 +2,13 @@
 
 namespace lib;
 
-class Router {
+class Router { //Configuração de rotas, determina a área padrão/raiz
+    protected $routers = array(
+        'site' => 'site', //Apelidos 
+        'admin' => 'admin'
+    );
     
+    protected $routerOnRaiz = 'site';
+    
+    protected $onRaiz = true;
 }
