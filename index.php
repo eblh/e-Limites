@@ -6,7 +6,10 @@
     </head>
     <body>
         <?php
-            require_once 'Helper/Bootstrap.php';
+        
+            define('APP_ROOT','e-Limites'); //Pasta raiz do sistema
+        
+            require_once 'helper/Bootstrap.php';
             
             use lib\System;
             

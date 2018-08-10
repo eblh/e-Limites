@@ -102,7 +102,10 @@ class System extends Router { //Erdou tudo da classe Router(Rotas) que não é p
     
     private function validarAction(){ //Verficar se não existe o método
         if(!(method_exists($this->runController, $this->action))){
-            die('Action não existe ' . $this->action);
+            header("HTTP/1.0 404 Not Found");
+            define('ERROR', 'Não foi localizado o Action: ' . $this->action);
+            include('content/($this->area)/shared/404_error.phtml');
+            exit();
         }
     }
 
