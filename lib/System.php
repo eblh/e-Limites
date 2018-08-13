@@ -2,6 +2,8 @@
 
 namespace lib;
 
+require_once 'Router.php';
+
 class System extends Router { //Erdou tudo da classe Router(Rotas) que não é private
     private $url;
     private $exploder;
@@ -48,7 +50,7 @@ class System extends Router { //Erdou tudo da classe Router(Rotas) que não é p
     }
 
     private function setController(){
-        $this->controller = $this->onRaiz ? $this->exploder[0] : //Se onRaiz for true ele recebe exploder[0]
+        $this->controller = $this->onRaiz ? $this->exploder[0] : //Se onRaiz for true ele recebe exploder[0] que é o controller
            (empty($this->exploder[1]) || is_null($this->exploder[1] || !isset($this->exploder[1]) ? 'home' : $this->exploder[1])); //isset = existe
     }
     // O controller é 0 do exploder
@@ -58,6 +60,11 @@ class System extends Router { //Erdou tudo da classe Router(Rotas) que não é p
         return $this->controller;
     }
 
+    private function validarController(){ //Verificar se a classe controller existe
+        if (!(class_exists($this->runController))){ //Se ela não existe
+            die('Controller não existe ' . $this->runController); //die = Stop no sistema
+        }
+    }
 
     private function setAction(){
         $this->action = $this->onRaiz ? //se onRaiz é true
@@ -77,7 +84,7 @@ class System extends Router { //Erdou tudo da classe Router(Rotas) que não é p
         }
         
         if (end($this->exploder) == null){
-            arra_pop($this->exploder);
+            array_pop($this->exploder);
         }
         
         if (empty($this->exploder)){
@@ -93,13 +100,7 @@ class System extends Router { //Erdou tudo da classe Router(Rotas) que não é p
     public function getParams($indice){
         return isset($this->params[$indice]) ? $this->params[$indice] : null;
     }
-    
-    private function validarController(){ //Verificar se a classe controller existe
-        if (!(class_exists($this->runController))){ //Se ela não existe
-            die('Controller não existe ' . $this->runController); //die = Stop no sistema
-        }
-    }
-    
+        
     private function validarAction(){ //Verficar se não existe o método
         if(!(method_exists($this->runController, $this->action))){
             header("HTTP/1.0 404 Not Found");
@@ -108,7 +109,6 @@ class System extends Router { //Erdou tudo da classe Router(Rotas) que não é p
             exit();
         }
     }
-
 
     public function Run(){ //Caminho auxiliar
         $this->runController = 'controller\\' . $this->area . '\\' . $this->controller . 'Controller';
