@@ -2,6 +2,8 @@
 
 namespace lib;
 
+require_once 'System.php';
+
 class Controller extends System {
     public $dados;
     public $layout;

@@ -1,8 +1,8 @@
 <?php
 
-namespace controller\site;
-
-use lib\Controller;
+//require_once (__DIR__.'lib/Controller.php');
+require_once 'lib/Controller.php';
+//namespace controller\site;
 
 class homeController extends Controller {
     
